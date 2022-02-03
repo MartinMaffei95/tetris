@@ -5,10 +5,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
     let cuadrados = Array.from(document.querySelectorAll('.grid div'));
     let siguienteRandom = 0;
     let timerID;
+    
 
     const ContadorPuntaje = document.querySelector('#puntos');
     const inicioBtn = document.querySelector('#inicio')
 
+
+    let puntaje = 0;
     //FORMAS
     const lTetromino = [
         [1, width+1, width*2+1, 2],
@@ -82,9 +85,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       
 
       // Movimientos con el teclado
-
       const teclado =(e)=>{
-
         switch(e.keyCode){
           case 37: moverIzq()
             break;
@@ -110,6 +111,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             
             dibujartetromino()
             dibujarEnDisplay()
+            sumarPuntaje()
         }
     }
     
@@ -151,9 +153,37 @@ document.addEventListener('DOMContentLoaded', ()=>{
     dibujartetromino()
   }
 
-      document.addEventListener('keyup',teclado)
+    document.addEventListener('keyup',teclado)
 
+      const touch=(e)=>{
+        let distanciaTop = e.touches[0].target.offsetTop;
+        let distanciaIzq = e.touches[0].target.offsetLeft;
+        console.log(distanciaTop,distanciaIzq)
+
+        if(distanciaTop <= 140){ //Parte superior
+          rotarTet() 
+        }else if(distanciaTop >= 380){ //Parte inferior
+          moverAbajo()
+        }else if(distanciaTop < 380 && distanciaTop > 140 && distanciaIzq < 88){ // Parte Central Izq
+          moverIzq()
+        }else if(distanciaTop < 380 && distanciaTop > 140 && distanciaIzq > 88){ // Parte Central Der
+          moverDer()
+        }
+        
+      }
       
+      grid.addEventListener('touchstart',touch)
+
+
+      // switch(e.keyCode){
+      //   case 37: moverIzq()
+      //     break;
+      //   case 38: rotarTet() 
+      //     break;
+      //   case 39: moverDer()
+      //     break;
+      //   case 40: moverAbajo()
+      //     break;
 
   const cubosVisorDetetromino = document.querySelectorAll('.mini-grid div');
   const visorWidth = 4
@@ -192,6 +222,25 @@ document.addEventListener('DOMContentLoaded', ()=>{
       dibujarEnDisplay()
     }
   })
+
+  //Puntaje
+  const sumarPuntaje =()=>{
+    for(let i = 0; i < 199; i +=width){
+      const fila = [i,i+1,i+2,i+3,i+4,i+5,i+6,i+7,i+8,i+9]
+      
+      if(fila.every(i => cuadrados[i].classList.contains('ultimo'))){
+        puntaje += 10;
+        ContadorPuntaje.innerHTML= puntaje;
+        fila.forEach(i =>{
+        cuadrados[i].classList.remove('ultimo');
+        cuadrados[i].classList.remove('tetromino');
+        })
+        const cuadradosCortados = cuadrados.splice(i,width)
+        cuadrados = cuadradosCortados.concat(cuadrados)
+        cuadrados.forEach(celda => grid.appendChild(celda))
+      }
+    }
+  }
 
 })
 
