@@ -255,6 +255,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         fila.forEach(i =>{
         cuadrados[i].classList.remove('ultimo');
         cuadrados[i].classList.remove('tetromino');
+        cuadrados[i].style.backgroundColor = '';
         cuadrados[i].style.borderColor = '';
         })
         const cuadradosCortados = cuadrados.splice(i,width)
