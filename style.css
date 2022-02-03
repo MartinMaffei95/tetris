@@ -37,6 +37,7 @@ body{
     grid-template-columns: repeat(10,1fr);
     grid-template-rows: repeat(20,1fr);
     border: solid 5px black;
+    position: relative;
     
     /* flex-wrap: wrap; */
 }
@@ -52,6 +53,46 @@ body{
 
 .tetromino{
     border-style: inset solid solid inset;
+}
+
+
+.botones{
+    --colorBoton:rgb(19, 38, 63);
+    /* background-color: red; */
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: .3fr 1fr .3fr;
+    opacity: 0.2;
+    pointer-events: none;
+    
+}
+
+.botones .boton_arriba{
+    background-color: var(--colorBoton);
+    grid-column:1/3 ;
+    grid-row: 1/2;
+    
+}
+.botones .boton_derecho{
+    background-color: var(--colorBoton);
+    grid-column:1/2 ;
+    grid-row: 2/3;
+}
+.botones .boton_izquierdo{
+    background-color: var(--colorBoton);
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+.botones .boton_abajo{
+    background-color: var(--colorBoton);
+    grid-column:1/3 ;
+    grid-row: 3/4;
 }
 
 .mini-grid{

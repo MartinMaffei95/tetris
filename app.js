@@ -178,15 +178,23 @@ document.addEventListener('DOMContentLoaded', ()=>{
         e.preventDefault()
         let distanciaTop = e.touches[0].target.offsetTop;
         let distanciaIzq = e.touches[0].target.offsetLeft;
+
+        let gridWidth= parseInt(getComputedStyle(grid).getPropertyValue('width')) //obtener el ancho del GRID
+        let gridHeight=  parseInt(getComputedStyle(grid).getPropertyValue('height')) //obtener el alto del GRID
+        let widthUnoXCien =gridWidth / 100;
+        let heigtUnoXCien = gridHeight / 100;
+
+        console.log(gridWidth*0.5)
+
         console.log(distanciaTop,distanciaIzq)
 
-        if(distanciaTop <= 140){ //Parte superior
+        if(distanciaTop <= gridHeight*0.2){ //Parte superior
           rotarTet() 
-        }else if(distanciaTop >= 380){ //Parte inferior
+        }else if(distanciaTop >= gridHeight*0.75){ //Parte inferior
           moverAbajo()
-        }else if(distanciaTop < 380 && distanciaTop > 140 && distanciaIzq < 88){ // Parte Central Izq
+        }else if(distanciaTop < gridHeight*0.75 && distanciaTop > gridHeight*0.2 && distanciaIzq < gridWidth*0.5){ // Parte Central Izq
           moverIzq()
-        }else if(distanciaTop < 380 && distanciaTop > 140 && distanciaIzq > 88){ // Parte Central Der
+        }else if(distanciaTop < gridHeight*0.75 && distanciaTop > gridHeight*0.2 && distanciaIzq > gridWidth*0.5){ // Parte Central Der
           moverDer()
         }
         
