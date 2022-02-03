@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
       // Movimientos con el teclado
       const teclado =(e)=>{
+        e.preventDefault()
         switch(e.keyCode){
           case 37: moverIzq()
             break;
@@ -170,9 +171,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     dibujartetromino()
   }
 
-    document.addEventListener('keyup',teclado)
+    document.addEventListener('keydown',teclado)
+    // document.addEventListener('keydown')
 
       const touch=(e)=>{
+        e.preventDefault()
         let distanciaTop = e.touches[0].target.offsetTop;
         let distanciaIzq = e.touches[0].target.offsetLeft;
         console.log(distanciaTop,distanciaIzq)
@@ -190,6 +193,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       }
       
       grid.addEventListener('touchstart',touch)
+      
 
 
       // switch(e.keyCode){
