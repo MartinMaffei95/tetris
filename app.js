@@ -12,7 +12,20 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
     let puntaje = 0;
+
+
+    //COLORES
+    const colores = [
+      'orange',
+      'red',
+      'blue',
+      'green',
+      'purple'
+    ]
+
     //FORMAS
+
+
     const lTetromino = [
         [1, width+1, width*2+1, 2],
         [width, width+1, width+2, width*2+2],
@@ -63,12 +76,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
       const dibujartetromino= () => {
         tetrominoActual.forEach(i =>{
             cuadrados[posicionActual + i].classList.add('tetromino')
+            cuadrados[posicionActual + i].style.backgroundColor = colores[random]
+            cuadrados[posicionActual + i].style.borderColor = colores[random]
         })
       }
       //borrar tetromino
       const borrartetromino= () => {
         tetrominoActual.forEach(i =>{
             cuadrados[posicionActual + i].classList.remove('tetromino')
+            cuadrados[posicionActual + i].style.backgroundColor = ''
+            cuadrados[posicionActual + i].style.borderColor = ''
         })
       }
 
@@ -203,9 +220,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const dibujarEnDisplay = ()=>{
     cubosVisorDetetromino.forEach(cubo => {
       cubo.classList.remove('tetromino')
+      cubo.style.backgroundColor = ''
+      cubo.style.borderColor = ''
     })
     siguientetetromino[siguienteRandom].forEach(i =>{
       cubosVisorDetetromino[visorIndex + i].classList.add('tetromino')
+      cubosVisorDetetromino[visorIndex + i].style.backgroundColor = colores[siguienteRandom]
+      cubosVisorDetetromino[visorIndex + i].style.borderColor = colores[siguienteRandom]
     })
   }
 
@@ -217,7 +238,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       timerID=null
     }else{
       dibujartetromino()
-      timerID= setInterval(moverAbajo,1000);
+      timerID= setInterval(moverAbajo,600);
       siguienteRandom= Math.floor(Math.random() * Tetrominos.length);
       dibujarEnDisplay()
     }
@@ -234,6 +255,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         fila.forEach(i =>{
         cuadrados[i].classList.remove('ultimo');
         cuadrados[i].classList.remove('tetromino');
+        cuadrados[i].style.borderColor = '';
         })
         const cuadradosCortados = cuadrados.splice(i,width)
         cuadrados = cuadradosCortados.concat(cuadrados)
